@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+    <title>Recipe List : SupperFeed</title>
+    <style type='text/css'>
+body, html { width: 100%; }
+body { margin: 30px;
+  padding: 0px;
+  border: 0px;
+  font-family: georgia,serif; 
+}
+h1, h2, h3 { 
+  margin: 0px 0px 8px -30px;
+  border-left: 30px solid #669;
+  color: white;
+  background-color: #669;
+  font-family: verdana,sans-serif;
+}
+.tags {
+  font-size: smaller
+}
+    </style>
+    <script src=
+      "https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  </head>
+  <body itemscope itemtype="http://schema.org/Recipe">
+    <h2 itemprop="name"><< recipe.name >></h2>
+    <div itemprop="author">Author: Cory Dodt</div>
+    <% if recipe.image %><img itemprop="image" src="<< recipe.image >>"><% endif %>
+    <div>Prep: <span itemprop="prepTime"><< recipe.prepTime >></span>,
+      Cook: <span itemprop="cookTime"><< recipe.cookTime >></span>,
+      Yield: <span itemprop="recipeYield"><< recipe.recipeYield >></span>
+    </div>
+    <div class="tags" itemprop="keywords"><< ', '.join(recipe.tags) >></div>
+    <div itemprop="nutrition">
+      <span itemprop="calories"><< recipe.calories >></span> calories (Kcal)
+    </div>
+
+    <h3>Ingredients</h3>
+      <ul>
+        <% for ing in recipe.ingredients %>
+        <li itemprop="ingredients"><< ing >></li>
+        <% endfor %>
+      </ul>
+
+    <h3>Instructions</h3>
+      <ol itemprop="recipeInstructions">
+        <% for inst in recipe.instructions %>
+        <li><< inst >></li>
+        <% endfor %>
+      </ol>
+
+    <a href="/list">Back to list</a>
+  </body>
+</html>
