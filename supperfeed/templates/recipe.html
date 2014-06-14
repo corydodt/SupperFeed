@@ -2,7 +2,8 @@
 <html>
   <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-    <title>Recipe List : SupperFeed</title>
+    <meta name="keywords" content="<< ','.join(recipe.tags) >>" />
+    <title><< recipe.name >>: SupperFeed</title>
     <style type='text/css'>
 body, html { width: 100%; }
 body { margin: 30px;
@@ -27,6 +28,7 @@ h1, h2, h3 {
   <body itemscope itemtype="http://schema.org/Recipe">
     <h2 itemprop="name"><< recipe.name >></h2>
     <div itemprop="author">Author: Cory Dodt</div>
+    <div itemprop="publisher"><i>a la Cory</i></div>
     <% if recipe.image %><img itemprop="image" src="<< recipe.image >>"><% endif %>
     <div>
       <% if recipe.prepTime %>Prep: <span itemprop="prepTime"><< recipe.prepTime >></span>, 
