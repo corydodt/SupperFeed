@@ -25,7 +25,7 @@ class Options(usage.Options):
 def run(argv=None):
     if argv is None:
         argv = sys.argv
-    o = Build()
+    o = Options()
     try:
         o.parseOptions(argv[1:])
     except usage.UsageError, e:

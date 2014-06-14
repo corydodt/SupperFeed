@@ -7,6 +7,8 @@ from jinja2 import Environment, PackageLoader, ChoiceLoader
 
 from klein import Klein
 
+from mongoengine import connect
+
 from supperfeed.build import Recipe
 
 
@@ -54,6 +56,9 @@ def simpleRenderer(template):
 
 class BaseServer(object):
     app = Klein()
+
+    def __init__(self):
+        connect("supperfeed")
 
     @app.route('/')
     def home(self, request):

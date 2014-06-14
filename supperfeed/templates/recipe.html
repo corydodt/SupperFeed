@@ -28,14 +28,19 @@ h1, h2, h3 {
     <h2 itemprop="name"><< recipe.name >></h2>
     <div itemprop="author">Author: Cory Dodt</div>
     <% if recipe.image %><img itemprop="image" src="<< recipe.image >>"><% endif %>
-    <div>Prep: <span itemprop="prepTime"><< recipe.prepTime >></span>,
-      Cook: <span itemprop="cookTime"><< recipe.cookTime >></span>,
-      Yield: <span itemprop="recipeYield"><< recipe.recipeYield >></span>
+    <div>
+      <% if recipe.prepTime %>Prep: <span itemprop="prepTime"><< recipe.prepTime >></span>, 
+      <% endif %>
+      <% if recipe.cookTime %>Cook: <span itemprop="cookTime"><< recipe.cookTime >></span>,
+      <% endif %>
+      <% if recipe.recipeYield %>Yield: <span itemprop="recipeYield"><< recipe.recipeYield >></span>
+      <% endif %>
     </div>
     <div class="tags" itemprop="keywords"><< ', '.join(recipe.tags) >></div>
-    <div itemprop="nutrition">
+    <% if recipe.calories %><div itemprop="nutrition">
       <span itemprop="calories"><< recipe.calories >></span> calories (Kcal)
     </div>
+    <% endif %>
 
     <h3>Ingredients</h3>
       <ul>

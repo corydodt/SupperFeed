@@ -23,7 +23,7 @@ h1, h2, h3 {
   </head>
   <body>
     <h2>Recipes</h2>
-    <% for r in recipes | sort %>
+    <% for r in recipes | sort(attribute='name') %>
     <div>
       <a href="/recipe/<< r.url >>"><< r.name >></a>
       <% if r.image %><img src="<< r.image >>"><% endif %>

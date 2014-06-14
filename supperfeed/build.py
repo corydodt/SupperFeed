@@ -51,14 +51,13 @@ class Build(usage.Options):
             Recipe.objects.delete()
 
         rows = getSheetData()
-        recipes = []
         for row in rows:
             name = row['title']
             url = urlifyName(name)
-            rec = Recipe.objects.get_or_create(url=url)
+            rec, success = Recipe.objects.get_or_create(url=url)
             rec.name = name
-            rec.recipeYield = row['servings']
-            rec.tags = row['tags']
+            rec.recipeYield = row.get('servings')
+            rec.tags = map(str.strip, row.get('tags', '').split(','))
             rec.ingredients = row['ingredients'].split('\n')
             rec.instructions = row['instructions'].split('\n')
             rec.save()
