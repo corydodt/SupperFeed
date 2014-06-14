@@ -21,6 +21,7 @@ cfg = dict(name='SupperFeed',
         "pyyaml",
         "markdown",
         "nodeenv",
+        "gdata",
         # testing:
         "coverage",
         "pyflakes",
