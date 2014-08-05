@@ -75,4 +75,10 @@ class BaseServer(object):
         recipe = Recipe.objects.get(url=recipeURL)
         return {'recipe': recipe}
 
+    @app.route('/recipe/<string:recipeURL>/edit')
+    @simpleRenderer('templates/recipe-editor.html')
+    def editRecipe(self, request, recipeURL):
+        recipe = Recipe.objects.get(url=recipeURL)
+        return {'recipe': recipe}
+
 resource = BaseServer().app.resource

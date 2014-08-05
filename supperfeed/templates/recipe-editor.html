@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+    <meta name="keywords" content="<< ','.join(recipe.tags) >>" />
+    <title><< recipe.name >>: SupperFeed</title>
+    <style type='text/css'>
+body, html { width: 100%; }
+body { margin: 30px;
+  padding: 0px;
+  border: 0px;
+  font-family: georgia,serif; 
+}
+h1, h2, h3 { 
+  margin: 0px 0px 8px -30px;
+  border-left: 30px solid #669;
+  color: white;
+  background-color: #669;
+  font-family: verdana,sans-serif;
+}
+.tags {
+  font-size: smaller
+}
+    </style>
+    <script src=
+      "https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  </head>
+  <body itemscope itemtype="http://schema.org/Recipe">
+    <div><input id='name' name='name' placeholder='Name'></input></div>
+    <div><input id='author' name='author' placeholder='Author'></input></div>
+    <div><input id='publisher' name='publisher' placeholder='Publisher'></input></div>
+    <div><input id='image' name='image' placeholder='Image'></input></div>
+    <div>
+      <input id='prep' name='prep' placeholder='Prep'></input>
+      <input id='cooktime' name='cooktime' placeholder='Cook Time'></input>
+      <input id='yield' name='yield' placeholder='Yields'></input>
+    </div>
+    <div><input id='tags' name='tags' placeholder='Tags'></input></div>
+    <div><input id='calories' name='calories' placeholder='Calories Per Serving'></input></div>
+
+    <h3>Ingredients</h3>
+    <div><textarea id='ingredients' name='ingredients' placeholder='Ingredients'></textarea></div>
+
+    <h3>Instructions</h3>
+      <div><textarea id='instructions' name='instructions' placeholder='Instructions'></textarea></div>
+
+    <a href="/list">Back to list</a>
+  </body>
+</html>
