@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+    <meta name="keywords" content="<< ','.join(recipe.tags) >>" />
+    <title><< recipe.name >>: SupperFeed</title>
+    <style type='text/css'>
+body, html { width: 100%; }
+body { margin: 30px;
+  padding: 0px;
+  border: 0px;
+  font-family: georgia,serif; 
+}
+h1, h2, h3 { 
+  margin: 0px 0px 8px -30px;
+  border-left: 30px solid #669;
+  color: white;
+  background-color: #669;
+  font-family: verdana,sans-serif;
+}
+.tags {
+  font-size: smaller
+}
+    </style>
+    <script src=
+      "https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  </head>
+  <body itemscope itemtype="http://schema.org/Recipe">
+    <form id='recipe-editor' name='recipe-editor' action='edit' method='POST'>
+    <div><input id='name' value='<< recipe.name|e >>' name='name' placeholder='Name'></input></div>
+    <div><input id='author' value='<< recipe.author|e >>' name='author' placeholder='Author'></input></div>
+    <div><input id='publisher' value='<< recipe.publisher|e >>' name='publisher' placeholder='Publisher'></input></div>
+    <# <div><input id='image' value='<< recipe.image >>' name='image' placeholder='Image'></input></div> #>
+    <div>
+      <input id='prep' value='<< recipe.prepTime >>'  name='prep' placeholder='Prep'></input>
+      <input id='cooktime' value='<< recipe.cookTime >>' name='cooktime' placeholder='Cook Time'></input>
+      <input id='yield' value='<< recipe.recipeYield >>' name='yield' placeholder='Yields'></input>
+    </div>
+    <# <div><input id='tags' value='<< recipe.tags|e >>' name='tags' placeholder='Tags'></input></div> #>
+    <# <div><input id='calories' value='<< recipe.calories|e >>' name='calories' placeholder='Calories Per Serving'></input></div> #>
+
+    <h3>Ingredients</h3>
+    <# <div><textarea id='ingredients' name='ingredients' placeholder='Ingredients'><< recipe.ingredients|e >></textarea></div> #>
+
+    <h3>Instructions</h3>
+      <# <div><textarea id='instructions' name='instructions' placeholder='Instructions'><< recipe.instructions|e >></textarea></div> #>
+    <input type='submit' value='Save'></input>
+    </form>
+
+    <a href="../<< recipe.url >>">Back to recipe</a>
+  </body>
+</html>

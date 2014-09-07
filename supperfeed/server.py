@@ -75,4 +75,28 @@ class BaseServer(object):
         recipe = Recipe.objects.get(url=recipeURL)
         return {'recipe': recipe}
 
+    @app.route('/recipe/<string:recipeURL>/edit', methods=['GET'])
+    @simpleRenderer('templates/recipe-editor.html')
+    def editRecipe(self, request, recipeURL):
+        recipe = Recipe.objects.get(url=recipeURL)
+        return {'recipe': recipe}
+
+    @app.route('/recipe/<string:recipeURL>/edit', methods=['POST'])
+    def saveRecipe(self, request, recipeURL):
+        recipe = Recipe.objects.get(url=recipeURL)
+
+        recipe.name = request.args.get('name', [''])[0]
+        recipe.author = request.args.get('author', [''])[0]
+        recipe.publisher = request.args.get('publisher', [''])[0]
+        #recipe.image = request.args.get('image', [''])[0]
+        recipe.prepTime = request.args.get('prep', [''])[0]
+        recipe.cookTime = request.args.get('cooktime', [''])[0]
+        recipe.yields = request.args.get('yield', [''])[0]
+        #recipe.calories = request.args.get('calories', [''])[0]
+        recipe.save()
+
+        request.redirect('/recipe/' + recipeURL)
+
+        return None
+
 resource = BaseServer().app.resource
