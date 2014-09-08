@@ -12,7 +12,7 @@ cfg = dict(name='SupperFeed',
       author='Cory Dodt',
       author_email='corydodt@gmail.com',
       license='MIT',
-      packages=[], # not installing any source code, we only care about deps
+      packages=['supperfeed'],
       scripts=['./appbin/spoon'],
       install_requires=[
         # app:
