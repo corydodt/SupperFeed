@@ -15,8 +15,6 @@ Installation
   virtualenv .
   . bin/activate
   pip install git+ssh://git@github.com/corydodt/SupperFeed.git
-  cd ~/SupperFeed.env
-  . bin/activate
   spoon build
   ```
 
