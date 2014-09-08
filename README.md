@@ -25,6 +25,7 @@ Starting SupperFeed
 * Run the following:
 
   ```
+  cd ~/SupperFeed.env; . bin/activate
   twistd -n web --class supperfeed.resource -p 8080
   ```
 
