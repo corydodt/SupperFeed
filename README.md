@@ -15,6 +15,9 @@ Installation
   virtualenv .
   . bin/activate
   pip install git+ssh://git@github.com/corydodt/SupperFeed.git
+  cd ~/SupperFeed.env
+  . bin/activate
+  spoon build
   ```
 
 
@@ -24,9 +27,6 @@ Starting SupperFeed
 * Run the following:
 
   ```
-  cd ~/SupperFeed.env
-  . bin/activate
-  spoon build    # one time only, pull the recipes into mongodb
   twistd -n web --class supperfeed.resource -p 8080
   ```
 
