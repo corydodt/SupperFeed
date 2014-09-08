@@ -13,6 +13,7 @@ cfg = dict(name='SupperFeed',
       author_email='corydodt@gmail.com',
       license='MIT',
       packages=[], # not installing any source code, we only care about deps
+      scripts=['./appbin/spoon'],
       install_requires=[
         # app:
         "mongoengine",
