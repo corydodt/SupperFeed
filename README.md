@@ -8,7 +8,7 @@ Installation
 
 * Run the following:
 
-  sudo apt-get install mongodb-server
+  sudo apt-get install mongodb-server mongodb
   mkdir ~/SupperFeed.env
   cd ~/SupperFeed.env
   virtualenv .
