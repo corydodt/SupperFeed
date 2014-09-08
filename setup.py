@@ -13,6 +13,7 @@ cfg = dict(name='SupperFeed',
       author_email='corydodt@gmail.com',
       license='MIT',
       packages=['supperfeed'],
+      package_data={'supperfeed': ['templates/*.html']},
       scripts=['./appbin/spoon'],
       install_requires=[
         # app:
