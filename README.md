@@ -8,12 +8,14 @@ Installation
 
 * Run the following:
 
+  ```
   sudo apt-get install mongodb-server mongodb
   mkdir ~/SupperFeed.env
   cd ~/SupperFeed.env
   virtualenv .
   . bin/activate
   pip install git+ssh://git@github.com/corydodt/SupperFeed.git
+  ```
 
 
 Starting SupperFeed
@@ -21,11 +23,12 @@ Starting SupperFeed
 
 * Run the following:
 
+  ```
   cd ~/SupperFeed.env
   . bin/activate
   spoon build    # one time only, pull the recipes into mongodb
   twistd -n web --class supperfeed.resource -p 8080
-  
+  ```
 
 Automatically Starting at boot
 ==============================
