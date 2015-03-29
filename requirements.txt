@@ -1,6 +1,7 @@
 gdata
 jinja2
 klein
+microdata
 mongoengine
 twisted
 txpx
