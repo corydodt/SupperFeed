@@ -121,12 +121,20 @@ class BaseServer(object):
 
         return None
 
-    @app.route('/api/tag-other!nobly/import/<url>')
+    @app.route('/api/tag-other!nobly/import/', branch=True)
     @jsonResponse
-    def importRecipe(self, request, importURL):
+    def importRecipe(self, request):
         """
         Import a recipe from a third-party site
         """
-        request.redirect(importURL)
+        start = len('/apit/tag-other!nobly/import/')
+        parts = filter(None, request.uri[start-1:].split('/'))
+        if not parts[0] in ('http:', 'https:'):
+            return {'ono': 'bad'}
+        origURL = '/'.join([parts[0] + '/'] + parts[1:])
+        def done(recipe):
+            request.redirect('/recipe/' + str(recipe.url))
+        d = importRecipe(origURL).addCallback(done)
+        return d
 
 resource = BaseServer().app.resource
