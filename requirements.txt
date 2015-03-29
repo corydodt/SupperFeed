@@ -1,0 +1,6 @@
+gdata
+jinja2
+klein
+mongoengine
+twisted
+txpx
