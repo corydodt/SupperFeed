@@ -28,6 +28,27 @@ env = Environment(
         )
 
 
+def jsonResponse(f):
+    """
+    Decorator that converts a route() return value into a JSON-formatted
+    string and sets the appropriate content-type and other request values (if
+    necessary).
+    If f returns a deferred, return a deferred.
+    """
+    @functools.wraps(f)
+    def wrapper(self, request, *a, **kw):
+        request.setHeader("Content-Type", "application/json")
+        request.setHeader("Expires", "-1") # IE caches way too much
+        payload = request.content.read()
+        if payload:
+            request.payload = json.loads(payload)
+        d = defer.maybeDeferred(f, self, request, *a, **kw)
+        d.addCallback(json.dumps, cls=BetterEncoder)
+        return d
+    return wrapper
+
+
+
 def render(template, **kw):
     """
     Pass keywords through a template and get a string
@@ -98,5 +119,13 @@ class BaseServer(object):
         request.redirect('/recipe/' + recipeURL)
 
         return None
+
+    @app.route('/api/tag-other!nobly/import/<url>')
+    @jsonResponse
+    def importRecipe(self, request, importURL):
+        """
+        Import a recipe from a third-party site
+        """
+        request.redirect(importURL)
 
 resource = BaseServer().app.resource

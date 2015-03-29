@@ -26,6 +26,20 @@ class Recipe(Document):
     ingredients = fields.ListField(fields.StringField())
     instructions = fields.ListField(fields.StringField())
 
+    @classmethod
+    def fromLoadedData(cls, jsonData):
+        """
+        Load data from the simple datastructure extracted by recipeschema
+        """
+        self = cls()
+        props = jsonData['properties']
+        self.name = props['name'][0]
+        self.image = props['image'][0]
+        self.author = props['author'][0]
+        self.recipeYield = props['recipeYield'][0]
+        self.ingredients = props['ingredients']
+        self.instructions = props['instructions']
+        return self
 
 def urlifyName(name):
     """
