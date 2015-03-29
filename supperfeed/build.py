@@ -16,6 +16,7 @@ class Recipe(Document):
     """
     name = fields.StringField()
     url = fields.StringField(unique=True)
+    importedFrom = fields.URLField()
     author = fields.StringField(default="Cory Dodt")
     image = fields.URLField()
     prepTime = fields.StringField()
@@ -31,14 +32,18 @@ class Recipe(Document):
         """
         Load data from the simple datastructure extracted by recipeschema
         """
-        self = cls()
         props = jsonData['properties']
-        self.name = props['name'][0]
+        name = props['name'][0]
+        url = urlifyName(name)
+        self, created = cls.objects.get_or_create(url=url)
+        self.name = name
+        self.url = urlifyName(self.name)
         self.image = props['image'][0]
         self.author = props['author'][0]
         self.recipeYield = props['recipeYield'][0]
         self.ingredients = props['ingredients']
-        self.instructions = props['instructions']
+        self.instructions = props['recipeInstructions']
+        self.importedFrom = props['importedFromURL']
         return self
 
 def urlifyName(name):

@@ -14,7 +14,7 @@ cfg = dict(name='SupperFeed',
       license='MIT',
       packages=['supperfeed'],
       package_data={'supperfeed': ['templates/*.html']},
-      scripts=['./appbin/spoon'],
+      scripts=['./appbin/spoon', './appbin/recipeschema'],
       install_requires=[
         # app:
         "mongoengine",

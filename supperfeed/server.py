@@ -2,14 +2,18 @@
 The web/app server
 """
 from functools import wraps
+import json
 
 from jinja2 import Environment, PackageLoader, ChoiceLoader
+
+from twisted.internet import defer
 
 from klein import Klein
 
 from mongoengine import connect
 
 from supperfeed.build import Recipe
+from supperfeed.importer import importRecipe
 
 
 supperLoader = ChoiceLoader([
@@ -35,7 +39,7 @@ def jsonResponse(f):
     necessary).
     If f returns a deferred, return a deferred.
     """
-    @functools.wraps(f)
+    @wraps(f)
     def wrapper(self, request, *a, **kw):
         request.setHeader("Content-Type", "application/json")
         request.setHeader("Expires", "-1") # IE caches way too much
@@ -43,11 +47,9 @@ def jsonResponse(f):
         if payload:
             request.payload = json.loads(payload)
         d = defer.maybeDeferred(f, self, request, *a, **kw)
-        d.addCallback(json.dumps, cls=BetterEncoder)
+        d.addCallback(json.dumps, indent=2)
         return d
     return wrapper
-
-
 
 def render(template, **kw):
     """
@@ -57,7 +59,6 @@ def render(template, **kw):
         template = env.get_template(template)
 
     return template.render(**kw)
-
 
 def simpleRenderer(template):
     """

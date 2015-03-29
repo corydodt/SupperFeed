@@ -30,7 +30,7 @@ class Options(usage.Options):
             print
             print '/'  + '*' * 50 + '/'
 
-    def cleanData(self, recipes):
+    def cleanData(self, recipes, url):
         ret = []
         for recipe in recipes:
             props = recipe['properties']
@@ -41,6 +41,7 @@ class Options(usage.Options):
                     vv = ' '.join([line.strip() for line in lines]).strip()
                     new.append(vv)
                 props[k] = new
+            props['importedFromURL'] = url
             ret.append(recipe)
         return ret
 
@@ -61,10 +62,11 @@ class Options(usage.Options):
             def bad(f, u):
                 print "** Could not fetch {u}:".format(u=u)
                 f.printException()
+                return f
 
             d.addErrback(bad, u
                     ).addCallback(self.consumeData
-                    ).addCallback(self.cleanData
+                    ).addCallback(self.cleanData, u
                     ).addCallback(self.showData)
             _dl.append(d)
 

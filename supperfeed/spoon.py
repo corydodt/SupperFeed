@@ -1,5 +1,3 @@
-import sys
-
 from twisted.python import usage
 
 from txpx import runner
