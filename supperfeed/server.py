@@ -127,8 +127,8 @@ class BaseServer(object):
         """
         Import a recipe from a third-party site
         """
-        start = len('/apit/tag-other!nobly/import/')
-        parts = filter(None, request.uri[start-1:].split('/'))
+        start = len('/api/tag-other!nobly/import/')
+        parts = filter(None, request.uri[start:].split('/'))
         if not parts[0] in ('http:', 'https:'):
             return {'ono': 'bad'}
         origURL = '/'.join([parts[0] + '/'] + parts[1:])
