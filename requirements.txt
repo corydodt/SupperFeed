@@ -1,7 +1,10 @@
 gdata
 jinja2
 klein
+markdown
 microdata
 mongoengine
+pyOpenSSL
+pyyaml
 twisted
 txpx
