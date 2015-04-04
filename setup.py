@@ -26,6 +26,7 @@ cfg = dict(name='SupperFeed',
         "nodeenv",
         "pyopenssl",
         "pyyaml",
+        "service_identity",
         # testing:
         "coverage",
         "pyflakes",

@@ -38,13 +38,17 @@ class Recipe(Document):
         self, created = cls.objects.get_or_create(url=url)
         self.name = name
         self.url = urlifyName(self.name)
-        self.image = props['image'][0]
-        self.author = props['author'][0]
-        self.recipeYield = props['recipeYield'][0]
-        self.ingredients = props['ingredients']
-        self.instructions = props['recipeInstructions']
-        self.importedFrom = props['importedFromURL']
-        return self
+        self.image = props.get('image', [None])[0]
+        self.author = props.get('author', [None])[0]
+        self.recipeYield = props.get('recipeYield', [None])[0]
+        keys = props.keys()
+        if 'ingredients' in keys and 'recipeInstructions' in keys and 'importedFromURL' in keys:
+            self.ingredients = props['ingredients']
+            self.instructions = props['recipeInstructions']
+            self.importedFrom = props['importedFromURL']
+            return self
+        else:
+            return None
 
 def urlifyName(name):
     """

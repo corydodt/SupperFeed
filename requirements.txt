@@ -6,5 +6,6 @@ microdata
 mongoengine
 pyOpenSSL
 pyyaml
+service_identity
 twisted
 txpx
