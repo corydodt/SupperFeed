@@ -5,9 +5,12 @@ import re
 import json
 
 from txpx import background, EchoProcess
+from txpx.process import LineGlueProtocol
 
 from supperfeed.build import Recipe
 
+
+LineGlueProtocol.MAX_LENGTH=10000
 
 class ImportProcess(EchoProcess):
     """
