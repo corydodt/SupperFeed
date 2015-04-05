@@ -10,6 +10,9 @@ from mongoengine import connect, Document, fields
 from supperfeed.sheets import getSheetData
 
 
+ITEM_SEPARATOR = '@@SEPARATOR@@'
+
+
 class Recipe(Document):
     """
     Ingredients and instructions to prepare one dish
@@ -43,8 +46,14 @@ class Recipe(Document):
         self.recipeYield = props.get('recipeYield', [None])[0]
         keys = props.keys()
         if 'ingredients' in keys and 'recipeInstructions' in keys and 'importedFromURL' in keys:
-            self.ingredients = props['ingredients']
-            self.instructions = props['recipeInstructions']
+            self.ingredients = []
+            for i in props['ingredients']:
+                self.ingredients.extend(i.split(ITEM_SEPARATOR))
+
+            self.instructions = []
+            for ii in props['recipeInstructions']:
+                self.instructions.extend(ii.split(ITEM_SEPARATOR))
+
             self.importedFrom = props['importedFromURL']
             return self
         else:

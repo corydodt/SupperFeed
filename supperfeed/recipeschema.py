@@ -7,13 +7,37 @@ import json
 
 import microdata
 
+from bs4 import BeautifulSoup
+
 from twisted.python import usage
 from twisted.internet import reactor, defer
 from twisted.web.client import getPage
 
 from txpx import runner
 
+from supperfeed.build import ITEM_SEPARATOR
+
 MICROFORMAT_RECIPE = 'http://schema.org/Recipe'
+
+
+def preCleanIngredients(soup, separator=ITEM_SEPARATOR):
+    """
+    Break up ingredients formatted by the method of using an ingredient class
+    by appending the separator character
+    """
+    for ing in soup.find_all(None, "ingredient"):
+        ing.insert_after(soup.new_string(separator))
+
+def preCleanInstructions(soup, splitter='br', separator=ITEM_SEPARATOR):
+    """
+    Break up instructions formatted by the method of inserting a br
+    between steps, by appending the separator character
+    """
+    instructionses = soup.find_all(None, itemprop="recipeInstructions")
+    for ins in instructionses:
+        for sub in ins.contents:
+            if sub.name == splitter:
+                sub.insert_after(soup.new_string(separator))
 
 class Options(usage.Options):
     synopsis = "recipeschema 'http://....'"
@@ -47,7 +71,13 @@ class Options(usage.Options):
 
     def consumeData(self, data):
         ret = []
-        items = microdata.get_items(StringIO(data))
+
+        soup = BeautifulSoup(StringIO(data))
+        preCleanIngredients(soup)
+        preCleanInstructions(soup)
+        workingDocument = StringIO(soup.encode('utf-8'))
+
+        items = microdata.get_items(workingDocument)
         for i in items:
             for typ in i.itemtype:
                 if typ.string == MICROFORMAT_RECIPE:
