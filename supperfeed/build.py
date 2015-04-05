@@ -48,11 +48,13 @@ class Recipe(Document):
         if 'ingredients' in keys and 'recipeInstructions' in keys and 'importedFromURL' in keys:
             self.ingredients = []
             for i in props['ingredients']:
-                self.ingredients.extend(i.split(ITEM_SEPARATOR))
+                ings = filter(None, [x.strip() for x in i.split(ITEM_SEPARATOR)])
+                self.ingredients.extend(ings)
 
             self.instructions = []
             for ii in props['recipeInstructions']:
-                self.instructions.extend(ii.split(ITEM_SEPARATOR))
+                inses = filter(None, [x.strip() for x in ii.split(ITEM_SEPARATOR)])
+                self.instructions.extend(inses)
 
             self.importedFrom = props['importedFromURL']
             return self

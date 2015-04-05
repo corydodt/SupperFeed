@@ -42,7 +42,7 @@ def separateByClass(soup, parent, classes, separator=ITEM_SEPARATOR):
     by appending the separator character
     """
     for thing in parent.find_all(None, class_=classes):
-        thing.insert_after(soup.new_string(separator))
+        insertSeparator(soup, thing, separator)
 
 def separateByTag(soup, parent, splitters, separator=ITEM_SEPARATOR):
     """
